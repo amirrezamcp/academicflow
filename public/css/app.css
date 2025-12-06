@@ -1,0 +1,80 @@
+/* ============================
+   Page animation
+============================ */
+.page-animate {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeIn 0.36s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+   Card hover
+============================ */
+.card-hover {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(2,6,23,0.06);
+}
+
+/* ============================
+   Button press animation
+============================ */
+.button-press {
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.button-press:active {
+    transform: scale(.985);
+}
+
+/* ============================
+   Input focus
+============================ */
+.input-focus {
+    transition: box-shadow .18s ease, border-color .18s ease;
+}
+
+.input-focus:focus {
+    outline: none;
+    border-color: rgba(59,130,246,0.9);
+    box-shadow: 0 0 0 6px rgba(59,130,246,0.08);
+}
+
+/* ============================
+   Table hover
+============================ */
+.table-hover tr:hover {
+    background-color: rgba(59,130,246,0.04);
+}
+
+/* ============================
+   Alert / Toast
+============================ */
+.alert-message {
+    transition: opacity .35s ease, transform .35s ease;
+}
+
+/* ============================
+   Scrollbar Style
+============================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #60a5fa;
+    border-radius: 8px;
+}
