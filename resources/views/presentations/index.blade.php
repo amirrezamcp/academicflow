@@ -3,53 +3,69 @@
 @section('title', 'لیست ارائه‌ها')
 
 @section('content')
-<div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-3">
-    <h2 class="text-2xl font-bold">لیست ارائه‌ها</h2>
-    <a href="{{ route('presentations.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg button-press">افزودن ارائه</a>
-</div>
 
-<div class="bg-white rounded-xl shadow overflow-hidden table-responsive">
-    <table class="w-full text-sm table-hover">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="p-3 text-right">#</th>
-                <th class="p-3 text-right">استاد</th>
-                <th class="p-3 text-right">درس</th>
-                <th class="p-3 text-right">روز</th>
-                <th class="p-3 text-right">شروع</th>
-                <th class="p-3 text-right">پایان</th>
-                <th class="p-3 text-center">عملیات</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($presentations as $presentation)
-            <tr class="border-b hover:bg-gray-50">
-                <td class="p-3 text-right">{{ $presentation->id }}</td>
-                <td class="p-3 text-right">{{ $presentation->master->name }}</td>
-                <td class="p-3 text-right">{{ $presentation->lesson->name }}</td>
-                <td class="p-3 text-right">{{ $presentation->day_hold }}</td>
-                <td class="p-3 text-right">{{ $presentation->start_time }}</td>
-                <td class="p-3 text-right">{{ $presentation->finish_time }}</td>
-                <td class="p-3 text-center flex justify-center items-center gap-3">
-                    <a href="{{ route('presentations.edit', $presentation) }}" class="text-blue-600">ویرایش</a>
-                    <form method="POST" action="{{ route('presentations.destroy', $presentation) }}" onsubmit="return confirmDelete(this);">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="text-red-600">حذف</button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="7" class="p-6 text-center text-gray-500">
-                    هنوز ارائه‌ای وجود ندارد — <a href="{{ route('presentations.create') }}" class="text-blue-600">افزودن اولین ارائه</a>
-                </td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+<div class="bg-white shadow rounded-xl p-6 page-animate">
 
-    <div class="p-4">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold">لیست ارائه‌ها</h2>
+
+        <a href="{{ route('presentations.create') }}"
+           class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 button-press">
+            + ارائه جدید
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-right border rounded-lg overflow-hidden">
+            <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                    <th class="p-3 border">#</th>
+                    <th class="p-3 border">استاد</th>
+                    <th class="p-3 border">درس</th>
+                    <th class="p-3 border">روز</th>
+                    <th class="p-3 border">ساعت</th>
+                    <th class="p-3 border">عملیات</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse($presentations as $presentation)
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="p-3 border">{{ $loop->iteration }}</td>
+                    <td class="p-3 border">{{ $presentation->master->name }}</td>
+                    <td class="p-3 border">{{ $presentation->lesson->name }}</td>
+                    <td class="p-3 border">{{ $presentation->day_hold }}</td>
+                    <td class="p-3 border">
+                        {{ $presentation->start_time }} - {{ $presentation->finish_time }}
+                    </td>
+
+                    <td class="p-3 border flex items-center gap-2">
+                        <a href="{{ route('presentations.edit', $presentation) }}"
+                           class="text-blue-600 font-medium hover:underline">ویرایش</a>
+
+                        <form action="{{ route('presentations.destroy', $presentation) }}"
+                              method="POST"
+                              onsubmit="return confirm('حذف شود؟');">
+                            @csrf @method('DELETE')
+                            <button class="text-red-600 hover:underline">حذف</button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="6" class="p-4 text-center text-gray-500">
+                        هیچ ارائه‌ای ثبت نشده است.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
         {{ $presentations->links() }}
     </div>
+
 </div>
+
 @endsection
