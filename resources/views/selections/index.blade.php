@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-3">
-    <h2 class="text-2xl font-bold">انتخاب واحد دانش‌آموزان</h2>
+    <h2 class="text-2xl font-bold">انتخاب واحد دانشجوان</h2>
     <a href="{{ route('selections.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg button-press">افزودن انتخاب واحد</a>
 </div>
 
@@ -13,7 +13,7 @@
         <thead class="bg-gray-100">
             <tr>
                 <th class="p-3 text-right">#</th>
-                <th class="p-3 text-right">دانش‌آموز</th>
+                <th class="p-3 text-right">دانشجو</th>
                 <th class="p-3 text-right">ارائه</th>
                 <th class="p-3 text-right">نمره</th>
                 <th class="p-3 text-right">سال تحصیلی</th>
