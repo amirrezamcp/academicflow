@@ -35,7 +35,7 @@ class UpdateSelectionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'presentation_id.unique' => 'این دانش‌آموز قبلاً این ارائه را انتخاب کرده است.',
+            'presentation_id.unique' => 'این دانشجو قبلاً این ارائه را انتخاب کرده است.',
         ];
     }
 }
