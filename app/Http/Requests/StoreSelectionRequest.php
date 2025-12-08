@@ -31,8 +31,8 @@ class StoreSelectionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'presentation_id.unique' => 'این دانش‌آموز قبلاً این ارائه را انتخاب کرده است.',
-            'student_id.required' => 'انتخاب دانش‌آموز الزامی است.',
+            'presentation_id.unique' => 'این دانشجو قبلاً این ارائه را انتخاب کرده است.',
+            'student_id.required' => 'انتخاب دانشجو الزامی است.',
             'presentation_id.required' => 'انتخاب ارائه الزامی است.',
         ];
     }
