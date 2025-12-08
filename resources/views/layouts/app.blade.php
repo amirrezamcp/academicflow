@@ -20,7 +20,7 @@
             <a href="{{ route('masters.index') }}" class="hover:underline">استادها</a>
             <a href="{{ route('lessons.index') }}" class="hover:underline">دروس</a>
             <a href="{{ route('presentations.index') }}" class="hover:underline">ارائه‌ها</a>
-            <a href="{{ route('students.index') }}" class="hover:underline">دانش‌آموزان</a>
+            <a href="{{ route('students.index') }}" class="hover:underline">دانشجو ها</a>
             <a href="{{ route('selections.index') }}" class="hover:underline">انتخاب واحد</a>
         </nav>
     </div>
