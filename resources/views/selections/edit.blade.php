@@ -1,70 +1,65 @@
 @extends('layouts.app')
 
-@section('title', 'ویرایش ارائه')
+@section('title', 'ویرایش انتخاب واحد')
 
 @section('content')
 
 <div class="max-w-xl mx-auto bg-white rounded-xl shadow p-6 page-animate">
 
-    <h2 class="text-xl font-bold mb-4">ویرایش ارائه</h2>
+    <h2 class="text-xl font-bold mb-4">ویرایش انتخاب واحد</h2>
 
-    <form action="{{ route('presentations.update', $presentation) }}" method="POST" class="space-y-4">
+    <form action="{{ route('selections.update', $selection) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
 
         <div>
-            <label class="block mb-1 font-medium">استاد:</label>
-            <select name="master_id" class="w-full p-3 border rounded-lg input-focus bg-gray-50">
-                @foreach($masters as $master)
-                    <option value="{{ $master->id }}"
-                        {{ old('master_id', $presentation->master_id) == $master->id ? 'selected' : '' }}>
-                        {{ $master->name }}
+            <label class="block mb-1 font-medium">دانشجو:</label>
+            <select name="student_id" class="w-full p-3 border rounded-lg input-focus bg-gray-50">
+                @foreach($students as $student)
+                    <option value="{{ $student->id }}"
+                        {{ old('student_id', $selection->student_id) == $student->id ? 'selected' : '' }}>
+                        {{ $student->name }}
                     </option>
                 @endforeach
             </select>
-            @error('master_id')
+            @error('student_id')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label class="block mb-1 font-medium">درس:</label>
-            <select name="lesson_id" class="w-full p-3 border rounded-lg input-focus bg-gray-50">
-                @foreach($lessons as $lesson)
-                    <option value="{{ $lesson->id }}"
-                        {{ old('lesson_id', $presentation->lesson_id) == $lesson->id ? 'selected' : '' }}>
-                        {{ $lesson->name }} ({{ $lesson->unit }} واحد)
+            <label class="block mb-1 font-medium">ارائه:</label>
+            <select name="presentation_id" class="w-full p-3 border rounded-lg input-focus bg-gray-50">
+                @foreach($presentations as $presentation)
+                    <option value="{{ $presentation->id }}"
+                        {{ old('presentation_id', $selection->presentation_id) == $presentation->id ? 'selected' : '' }}>
+                        {{ $presentation->lesson->name }} — {{ $presentation->master->name }}
                     </option>
                 @endforeach
             </select>
-            @error('lesson_id')
+            @error('presentation_id')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label class="block mb-1 font-medium">روز برگزاری:</label>
-            <input type="text" name="day_hold" value="{{ old('day_hold', $presentation->day_hold) }}"
-                   class="w-full p-3 border rounded-lg input-focus">
-            @error('day_hold')
+            <label class="block mb-1 font-medium">نمره:</label>
+            <input type="number" name="score"
+                   value="{{ old('score', $selection->score) }}"
+                   class="w-full p-3 border rounded-lg input-focus"
+                   min="0" max="100" step="0.01">
+            @error('score')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label class="block mb-1 font-medium">ساعت شروع:</label>
-            <input type="time" name="start_time" value="{{ old('start_time', $presentation->start_time) }}"
-                   class="w-full p-3 border rounded-lg input-focus">
-            @error('start_time')
-                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div>
-            <label class="block mb-1 font-medium">ساعت پایان:</label>
-            <input type="time" name="finish_time" value="{{ old('finish_time', $presentation->finish_time) }}"
-                   class="w-full p-3 border rounded-lg input-focus">
-            @error('finish_time')
+            <label class="block mb-1 font-medium">سال تحصیلی:</label>
+            <input type="number" name="year_education"
+                   value="{{ old('year_education', $selection->year_education) }}"
+                   class="w-full p-3 border rounded-lg input-focus"
+                   min="1300" max="9999">
+            @error('year_education')
                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>

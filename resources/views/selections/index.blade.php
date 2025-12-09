@@ -14,7 +14,7 @@
             <tr>
                 <th class="p-3 text-right">#</th>
                 <th class="p-3 text-right">دانشجو</th>
-                <th class="p-3 text-right">ارائه</th>
+                <th class="p-3 text-right">درس</th>
                 <th class="p-3 text-right">نمره</th>
                 <th class="p-3 text-right">سال تحصیلی</th>
                 <th class="p-3 text-center">عملیات</th>
