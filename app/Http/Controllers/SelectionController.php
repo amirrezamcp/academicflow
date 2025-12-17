@@ -27,8 +27,16 @@ class SelectionController extends Controller
 
     public function store(StoreSelectionRequest $request)
     {
-        Selection::create($request->validated());
-        return redirect()->route('selections.index')->with('success', 'انتخاب واحد ثبت شد.');
+        foreach ($request->presentation_ids as $presentationId) {
+            Selection::create([
+                'student_id' => $request->student_id,
+                'presentation_id' => $presentationId,
+                'year_education' => now()->year,
+            ]);
+        }
+
+        return redirect()->route('selections.index')
+            ->with('success', 'انتخاب واحدها با موفقیت ثبت شد.');
     }
 
     public function edit(Selection $selection)
