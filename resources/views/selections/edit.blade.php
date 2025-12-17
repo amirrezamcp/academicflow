@@ -14,7 +14,6 @@
         @csrf
         @method('PUT')
 
-        {{-- دانشجو (فقط نمایش) --}}
         <div>
             <label class="block mb-1 font-medium">دانشجو:</label>
             <input type="text"
@@ -23,7 +22,6 @@
                    disabled>
         </div>
 
-        {{-- ارائه --}}
         <div>
             <label class="block mb-1 font-medium">ارائه:</label>
             <select name="presentation_id"
@@ -45,7 +43,6 @@
             @enderror
         </div>
 
-        {{-- نمره --}}
         <div>
             <label class="block mb-1 font-medium">نمره:</label>
             <input type="number"
@@ -60,7 +57,6 @@
             @enderror
         </div>
 
-        {{-- سال تحصیلی --}}
         <div>
             <label class="block mb-1 font-medium">سال تحصیلی:</label>
             <input type="number"
@@ -75,7 +71,6 @@
             @enderror
         </div>
 
-        {{-- دکمه‌ها --}}
         <div class="flex gap-3">
             <button class="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 button-press">
                 ذخیره تغییرات

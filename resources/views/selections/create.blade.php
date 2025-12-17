@@ -11,7 +11,6 @@
     <form action="{{ route('selections.store') }}" method="POST" class="space-y-4">
         @csrf
 
-        {{-- دانشجو --}}
         <div>
             <label class="block mb-1 font-medium">دانشجو:</label>
             <select name="student_id"
@@ -29,12 +28,10 @@
             @enderror
         </div>
 
-        {{-- ارور کلی دروس --}}
         @error('presentation_ids')
             <p class="text-red-600 text-sm">{{ $message }}</p>
         @enderror
 
-        {{-- لیست درس‌ها --}}
         <div id="lessons-wrapper" class="space-y-4">
 
             <div class="lesson-row border rounded-lg p-4 bg-gray-50">
@@ -73,7 +70,6 @@
 
         </div>
 
-        {{-- افزودن درس --}}
         <button type="button"
                 id="add-lesson"
                 class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
