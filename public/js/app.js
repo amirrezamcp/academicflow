@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const page = document.querySelector('.page-animate');
-    if (page) page.style.opacity = '1';
+    if (page) {
+        page.style.opacity = '1';
+    }
 
     const alert = document.querySelector('.alert-message');
     if (alert) {
@@ -11,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => alert.remove(), 400);
         }, 2800);
     }
+
 });
 
 window.confirmDelete = function (form) {
