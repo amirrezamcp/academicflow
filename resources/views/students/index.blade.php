@@ -24,7 +24,7 @@
     <table class="w-full text-sm border-collapse">
         <thead class="bg-gray-100 text-gray-700">
             <tr>
-                <th class="p-3 text-right">#</th>
+                <th class="p-3 text-right">ردیف</th>
                 <th class="p-3 text-right">نام</th>
                 <th class="p-3 text-right">مقطع</th>
                 <th class="p-3 text-center">معدل</th>

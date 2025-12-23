@@ -15,7 +15,7 @@
     <table class="w-full text-sm">
         <thead class="bg-gray-100 text-gray-700">
             <tr>
-                <th class="p-3 text-right">#</th>
+                <th class="p-3 text-right">ردیف</th>
                 <th class="p-3 text-right">نام درس</th>
                 <th class="p-3 text-right">تعداد واحد</th>
                 <th class="p-3 text-center">عملیات</th>

@@ -19,7 +19,7 @@
         <table class="w-full text-sm text-right border rounded-lg overflow-hidden">
             <thead class="bg-gray-100 text-gray-700">
                 <tr>
-                    <th class="p-3 border">#</th>
+                    <th class="p-3 border">ردیف</th>
                     <th class="p-3 border">استاد</th>
                     <th class="p-3 border">درس</th>
                     <th class="p-3 border">روز</th>

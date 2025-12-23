@@ -12,7 +12,7 @@
     <table class="w-full text-sm table-hover">
         <thead class="bg-gray-100">
             <tr>
-                <th class="p-3 text-right">#</th>
+                <th class="p-3 text-right">ردیف</th>
                 <th class="p-3 text-right">دانشجو</th>
                 <th class="p-3 text-right">درس</th>
                 <th class="p-3 text-right">نمره</th>
