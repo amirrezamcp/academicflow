@@ -41,7 +41,6 @@
             @csrf
             @method('PUT')
 
-            {{-- نام درس --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     <span class="text-red-500 ml-1">*</span>
@@ -53,7 +52,7 @@
                     </div>
                     <input type="text" name="name" value="{{ old('name', $lesson->name) }}"
                            class="input-modern pr-10 @error('name') border-red-300 focus:border-red-500 focus:ring-red-200 @enderror"
-                           required
+
                            autofocus>
                 </div>
                 @error('name')
@@ -64,7 +63,6 @@
                 @enderror
             </div>
 
-            {{-- تعداد واحد --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     <span class="text-red-500 ml-1">*</span>
@@ -77,7 +75,7 @@
                     <input type="number" name="unit" value="{{ old('unit', $lesson->unit) }}"
                            class="input-modern pr-10 @error('unit') border-red-300 focus:border-red-500 focus:ring-red-200 @enderror"
                            min="1" max="6"
-                           required>
+                           >
                 </div>
                 @error('unit')
                     <p class="text-sm text-red-600 flex items-center gap-1">
@@ -87,7 +85,6 @@
                 @enderror
             </div>
 
-            {{-- کد درس --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     کد درس
@@ -101,7 +98,6 @@
                 </div>
             </div>
 
-            {{-- توضیحات --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     توضیحات
@@ -110,7 +106,6 @@
                           class="input-modern resize-none">{{ old('description', $lesson->description) }}</textarea>
             </div>
 
-            {{-- اطلاعات اضافی --}}
             @if($lesson->created_at || $lesson->updated_at)
             <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <h4 class="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
@@ -136,7 +131,6 @@
             </div>
             @endif
 
-            {{-- دکمه‌های عملیات --}}
             <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
                 <button type="submit"
                         class="btn-primary flex-1 flex items-center justify-center gap-2 py-3">

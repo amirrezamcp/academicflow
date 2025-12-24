@@ -7,7 +7,6 @@
 @section('content')
 <div class="space-y-6 page-animate">
 
-    {{-- آمار و اطلاعات --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <x-stats-widget
             title="کل درس‌ها"
@@ -42,7 +41,6 @@
         />
     </div>
 
-    {{-- هدر صفحه با جستجو --}}
     <x-card class="p-6">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
@@ -51,7 +49,6 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                {{-- جستجو --}}
                 <form method="GET" action="{{ route('lessons.index') }}" class="flex-1 md:w-64">
                     <div class="relative">
                         <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -63,7 +60,6 @@
                     </div>
                 </form>
 
-                {{-- دکمه افزودن --}}
                 <a href="{{ route('lessons.create') }}"
                    class="btn-primary flex items-center justify-center gap-2 px-6 py-3 whitespace-nowrap">
                     <i class="fas fa-plus-circle"></i>
@@ -73,7 +69,6 @@
         </div>
     </x-card>
 
-    {{-- جدول درس‌ها --}}
     <x-card class="overflow-hidden p-0">
         <div class="overflow-x-auto">
             <table class="table-modern w-full">
@@ -135,15 +130,12 @@
                         <td>
                             <div class="text-sm text-gray-600">
                                 <div>{{ verta($lesson->created_at)->format('Y/m/d') }}</div>
-                                {{-- <div>{{ ($lesson->created_at)->format('Y/m/d') }}</div> --}}
                                 <div class="text-xs text-gray-500">{{ verta($lesson->created_at)->format('H:i') }}</div>
-                                {{-- <div class="text-xs text-gray-500">{{ ($lesson->created_at)->format('H:i') }}</div> --}}
                             </div>
                         </td>
 
                         <td>
                             <div class="flex items-center justify-center gap-2">
-                                {{-- مشاهده --}}
                                 <a href="{{ route('lessons.show', $lesson) }}"
                                    class="w-9 h-9 rounded-lg border border-gray-300 flex items-center justify-center
                                           text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition"
@@ -151,7 +143,6 @@
                                     <i class="fas fa-eye text-sm"></i>
                                 </a>
 
-                                {{-- ویرایش --}}
                                 <a href="{{ route('lessons.edit', $lesson) }}"
                                    class="w-9 h-9 rounded-lg border border-blue-300 bg-blue-50 flex items-center justify-center
                                           text-blue-600 hover:bg-blue-100 hover:text-blue-800 transition"
@@ -159,7 +150,6 @@
                                     <i class="fas fa-edit text-sm"></i>
                                 </a>
 
-                                {{-- حذف --}}
                                 <button onclick="confirmDelete('{{ $lesson->id }}', '{{ $lesson->name }}')"
                                         class="w-9 h-9 rounded-lg border border-red-300 bg-red-50 flex items-center justify-center
                                                text-red-600 hover:bg-red-100 hover:text-red-800 transition"
@@ -167,7 +157,6 @@
                                     <i class="fas fa-trash-alt text-sm"></i>
                                 </button>
 
-                                {{-- فرم حذف (مخفی) --}}
                                 <form id="delete-form-{{ $lesson->id }}"
                                       action="{{ route('lessons.destroy', $lesson) }}"
                                       method="POST" class="hidden">
@@ -200,7 +189,6 @@
             </table>
         </div>
 
-        {{-- Pagination --}}
         @if($lessons->hasPages())
         <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -226,7 +214,6 @@
 
 @push('scripts')
 <script>
-    // تابع حذف با تایید
     function confirmDelete(id, name) {
         Swal.fire({
             title: 'آیا مطمئن هستید؟',
@@ -262,7 +249,6 @@
         });
     }
 
-    // اعمال فیلتر جستجو با تاخیر
     let searchTimeout;
     document.querySelector('input[name="search"]').addEventListener('input', function(e) {
         clearTimeout(searchTimeout);

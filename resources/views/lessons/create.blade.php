@@ -30,7 +30,6 @@
         <form action="{{ route('lessons.store') }}" method="POST" class="space-y-6">
             @csrf
 
-            {{-- نام درس --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     <span class="text-red-500 ml-1">*</span>
@@ -43,7 +42,7 @@
                     <input type="text" name="name" value="{{ old('name') }}"
                            class="input-modern pr-10 @error('name') border-red-300 focus:border-red-500 focus:ring-red-200 @enderror"
                            placeholder="مثلاً: پایگاه داده‌ها"
-                           required
+
                            autofocus>
                 </div>
                 @error('name')
@@ -54,7 +53,6 @@
                 @enderror
             </div>
 
-            {{-- تعداد واحد --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     <span class="text-red-500 ml-1">*</span>
@@ -68,7 +66,7 @@
                            class="input-modern pr-10 @error('unit') border-red-300 focus:border-red-500 focus:ring-red-200 @enderror"
                            placeholder="مثلاً: ۳"
                            min="1" max="6"
-                           required>
+                           >
                 </div>
                 @error('unit')
                     <p class="text-sm text-red-600 flex items-center gap-1">
@@ -78,7 +76,6 @@
                 @enderror
             </div>
 
-            {{-- کد درس (اختیاری) --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     کد درس
@@ -94,7 +91,6 @@
                 <p class="text-xs text-gray-500">کد اختصاصی درس (در صورت تمایل)</p>
             </div>
 
-            {{-- توضیحات --}}
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700">
                     توضیحات
@@ -110,7 +106,6 @@
                 @enderror
             </div>
 
-            {{-- دکمه‌های عملیات --}}
             <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
                 <button type="submit"
                         class="btn-primary flex-1 flex items-center justify-center gap-2 py-3">
@@ -127,7 +122,6 @@
         </form>
     </x-card>
 
-    {{-- راهنما --}}
     <x-card title="راهنمای پر کردن فرم" icon="fas fa-info-circle" class="bg-blue-50 border-blue-100">
         <ul class="space-y-2 text-sm text-gray-700">
             <li class="flex items-start gap-2">
@@ -150,7 +144,6 @@
 
 @push('scripts')
 <script>
-    // اعتبارسنجی سمت کلاینت
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         const nameInput = form.querySelector('input[name="name"]');
@@ -159,7 +152,6 @@
         form.addEventListener('submit', function(e) {
             let isValid = true;
 
-            // اعتبارسنجی نام درس
             if (!nameInput.value.trim()) {
                 showError(nameInput, 'نام درس الزامی است');
                 isValid = false;
@@ -170,7 +162,6 @@
                 clearError(nameInput);
             }
 
-            // اعتبارسنجی واحد
             if (!unitInput.value) {
                 showError(unitInput, 'تعداد واحد الزامی است');
                 isValid = false;
@@ -183,7 +174,6 @@
 
             if (!isValid) {
                 e.preventDefault();
-                // اسکرول به اولین خطا
                 const firstError = form.querySelector('.border-red-300');
                 if (firstError) {
                     firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
