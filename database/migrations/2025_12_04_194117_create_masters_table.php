@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('graduation')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->text('specialties')->nullable();
+            $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive', 'sabbatical'])->default('active');
             $table->timestamps();
         });
     }

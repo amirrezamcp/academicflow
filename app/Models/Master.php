@@ -10,6 +10,11 @@ class Master extends Model
     protected $fillable = [
         'name',
         'graduation',
+        'email',
+        'phone',
+        'specialties',
+        'description',
+        'status',
     ];
 
     public function presentations(): HasMany
