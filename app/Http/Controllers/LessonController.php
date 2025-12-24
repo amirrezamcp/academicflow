@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Lesson;
 use App\Http\Requests\LessonStoreRequest;
 use App\Http\Requests\LessonUpdateRequest;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $lessons = Lesson::latest()->paginate(15);
-        return view('lessons.index', compact('lessons'));
+        $query = Lesson::query();
+
+        // جستجو
+        if ($request->has('search') && $request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('code', 'like', '%' . $request->search . '%');
+        }
+
+        $lessons = $query->latest()->paginate(10);
+
+        // آمارها
+        $totalLessons = Lesson::count();
+        $avgUnit = Lesson::avg('unit') ?? 0;
+        $maxUnit = Lesson::max('unit') ?? 0;
+        $minUnit = Lesson::min('unit') ?? 0;
+
+        return view('lessons.index', compact('lessons', 'totalLessons', 'avgUnit', 'maxUnit', 'minUnit'));
     }
 
     public function create()
