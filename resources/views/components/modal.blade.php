@@ -1,4 +1,3 @@
-{{-- resources/views/components/modal.blade.php --}}
 <div id="{{ $id }}" class="modal hidden fixed inset-0 z-50 overflow-y-auto">
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
          onclick="hideModal('{{ $id }}')"></div>
