@@ -15,6 +15,9 @@ class Presentation extends Model
         'day_hold',
         'start_time',
         'finish_time',
+        'location',
+        'description',
+        'status',
     ];
 
     public function master(): BelongsTo

@@ -18,7 +18,14 @@ return new class extends Migration
             $table->string('day_hold')->nullable();
             $table->time('start_time')->nullable();
             $table->time('finish_time')->nullable();
+            $table->string('location')->nullable();
+            $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive', 'completed'])->default('active');
+
             $table->timestamps();
+
+            $table->index('day_hold');
+            $table->index('status');
         });
     }
 

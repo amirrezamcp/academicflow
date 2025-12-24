@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreSelectionRequest extends FormRequest
 {
@@ -15,19 +14,22 @@ class StoreSelectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => ['required', 'exists:students,id'],
+            'student_id' => 'required|numeric|exists:students,id',
+            'presentation_ids' => 'required|array|min:1',
+            'presentation_ids.*' => 'numeric|exists:presentations,id',
+            'score' => 'nullable|numeric|min:0|max:20',
+            'year_education' => 'required|numeric|min:1300|max:1500',
+        ];
+    }
 
-            'presentation_ids' => ['required', 'array', 'min:1'],
-            'presentation_ids.*' => [
-                'required',
-                'exists:presentations,id',
-
-                // جلوگیری از انتخاب تکراری یک درس برای یک دانشجو
-                Rule::unique('selections', 'presentation_id')
-                    ->where(fn ($q) =>
-                        $q->where('student_id', $this->student_id)
-                    ),
-            ],
+    public function attributes(): array
+    {
+        return [
+            'student_id' => 'دانشجو',
+            'presentation_ids' => 'ارائه‌ها',
+            'presentation_ids.*' => 'ارائه',
+            'score' => 'نمره',
+            'year_education' => 'سال تحصیلی',
         ];
     }
 
@@ -35,15 +37,28 @@ class StoreSelectionRequest extends FormRequest
     {
         return [
             'student_id.required' => 'انتخاب دانشجو الزامی است.',
-            'student_id.exists' => 'دانشجوی انتخاب‌شده معتبر نیست.',
+            'student_id.exists' => 'دانشجو انتخاب شده معتبر نیست.',
 
-            'presentation_ids.required' => 'حداقل یک درس باید انتخاب شود.',
-            'presentation_ids.array' => 'فرمت دروس انتخابی نامعتبر است.',
-            'presentation_ids.min' => 'حداقل یک درس باید انتخاب شود.',
+            'presentation_ids.required' => 'حداقل یک ارائه را انتخاب کنید.',
+            'presentation_ids.array' => 'فرمت ارائه‌ها معتبر نیست.',
+            'presentation_ids.min' => 'حداقل یک ارائه را انتخاب کنید.',
+            'presentation_ids.*.exists' => 'ارائه انتخاب شده معتبر نیست.',
 
-            'presentation_ids.*.required' => 'انتخاب درس الزامی است.',
-            'presentation_ids.*.exists' => 'درس انتخاب‌شده معتبر نیست.',
-            'presentation_ids.*.unique' => 'این دانشجو قبلاً این درس را انتخاب کرده است.',
+            'score.numeric' => 'نمره باید عددی باشد.',
+            'score.min' => 'نمره نمی‌تواند منفی باشد.',
+            'score.max' => 'نمره نمی‌تواند بیشتر از 20 باشد.',
+
+            'year_education.required' => 'سال تحصیلی را وارد کنید.',
+            'year_education.numeric' => 'سال تحصیلی باید عددی باشد.',
+            'year_education.min' => 'سال تحصیلی باید معتبر باشد.',
+            'year_education.max' => 'سال تحصیلی باید معتبر باشد.',
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'year_education' => $this->year_education ?? now()->year,
+        ]);
     }
 }

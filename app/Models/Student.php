@@ -6,12 +6,22 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Schema;
 
 class Student extends Model
 {
     protected $fillable = [
         'name',
         'graduation',
+        'student_number',
+        'email',
+        'phone',
+        'description',
+        'status',
+    ];
+
+    protected $attributes = [
+        'status' => 'active',
     ];
 
     public function selections(): HasMany
@@ -25,12 +35,29 @@ class Student extends Model
                     ->withPivot(['score', 'year_education'])
                     ->withTimestamps();
     }
-    
+
+    public function getStatusAttribute($value)
+    {
+        if (Schema::hasColumn('students', 'status')) {
+            return $value ?? 'active';
+        }
+        return 'active';
+    }
+
+    public function getStatusInPersianAttribute()
+    {
+        return match($this->status) {
+            'active' => 'فعال',
+            'inactive' => 'غیرفعال',
+            'graduated' => 'فارغ التحصیل',
+            default => 'نامشخص'
+        };
+    }
+
     protected function gpa(): Attribute
     {
         return Attribute::make(
             get: function () {
-
                 $selections = $this->selections()
                     ->whereNotNull('score')
                     ->with('presentation.lesson')
@@ -44,15 +71,20 @@ class Student extends Model
                 $totalUnits = 0;
 
                 foreach ($selections as $selection) {
-                    $unit = $selection->presentation->lesson->unit;
-                    $score = $selection->score;
+                    $unit = $selection->presentation->lesson->unit ?? 0;
+                    $score = $selection->score ?? 0;
 
                     $totalWeightedScore += $score * $unit;
                     $totalUnits += $unit;
                 }
 
-                return round($totalWeightedScore / $totalUnits, 2);
+                return $totalUnits > 0 ? round($totalWeightedScore / $totalUnits, 2) : 0;
             }
         );
+    }
+
+    public function getSelectionsCountAttribute()
+    {
+        return $this->selections()->count();
     }
 }
