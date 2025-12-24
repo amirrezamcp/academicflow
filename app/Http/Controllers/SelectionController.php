@@ -95,8 +95,6 @@ class SelectionController extends Controller
                 'presentation_id' => $presentationId,
                 'score' => $request->score,
                 'year_education' => $request->year_education ?? now()->year,
-                'created_at' => now(),
-                'updated_at' => now(),
             ];
         }
 
