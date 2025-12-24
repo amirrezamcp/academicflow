@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSelectionRequest;
 use App\Http\Requests\UpdateSelectionRequest;
+use App\Models\Lesson;
+use App\Models\Master;
 use App\Models\Selection;
 use App\Models\Student;
 use App\Models\Presentation;
@@ -55,7 +57,31 @@ class SelectionController extends Controller
     public function create()
     {
         $students = Student::orderBy('name')->get();
-        $presentations = Presentation::with(['master', 'lesson'])->get();
+
+        $presentations = Presentation::with(['master', 'lesson'])
+            ->whereHas('master')
+            ->whereHas('lesson')
+            ->orderBy('day_hold')
+            ->orderBy('start_time')
+            ->get();
+
+        if ($presentations->isEmpty()) {
+            $master = Master::first();
+            $lesson = Lesson::first();
+
+            if ($master && $lesson) {
+                Presentation::create([
+                    'master_id' => $master->id,
+                    'lesson_id' => $lesson->id,
+                    'day_hold' => 'شنبه',
+                    'start_time' => '08:00',
+                    'finish_time' => '10:00',
+                ]);
+
+                $presentations = Presentation::with(['master', 'lesson'])->get();
+            }
+        }
+
         return view('selections.create', compact('students', 'presentations'));
     }
 

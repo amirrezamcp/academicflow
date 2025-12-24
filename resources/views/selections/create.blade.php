@@ -90,24 +90,30 @@
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                     <i class="fas fa-book text-gray-400"></i>
                                 </div>
-                                <select name="presentation_ids[]"
-                                        class="presentation-select input-modern pr-10 appearance-none cursor-pointer"
-                                        required>
-                                    <option value="">انتخاب ارائه...</option>
-                                    @foreach($presentations as $presentation)
-                                        <option value="{{ $presentation->id }}"
-                                                data-unit="{{ $presentation->lesson->unit }}"
-                                                data-day="{{ $presentation->day_hold }}"
-                                                data-start="{{ $presentation->start_time }}"
-                                                data-finish="{{ $presentation->finish_time }}"
-                                                data-master="{{ $presentation->master->name }}"
-                                                data-lesson="{{ $presentation->lesson->name }}">
-                                            {{ $presentation->master->name }} -
-                                            {{ $presentation->lesson->name }}
-                                            ({{ $presentation->lesson->unit }} واحد)
-                                        </option>
-                                    @endforeach
-                                </select>
+                                    <select name="presentation_ids[]"
+                                            class="presentation-select input-modern pr-10 appearance-none cursor-pointer"
+                                            required>
+                                        <option value="">انتخاب ارائه...</option>
+                                        @if($presentations && $presentations->count() > 0)
+                                            @foreach($presentations as $presentation)
+                                                @if($presentation->master && $presentation->lesson) {{-- بررسی کن ارتباطات وجود دارن --}}
+                                                    <option value="{{ $presentation->id }}"
+                                                            data-unit="{{ $presentation->lesson->unit }}"
+                                                            data-day="{{ $presentation->day_hold }}"
+                                                            data-start="{{ $presentation->start_time }}"
+                                                            data-finish="{{ $presentation->finish_time }}"
+                                                            data-master="{{ $presentation->master->name }}"
+                                                            data-lesson="{{ $presentation->lesson->name }}">
+                                                        {{ $presentation->master->name }} -
+                                                        {{ $presentation->lesson->name }}
+                                                        ({{ $presentation->lesson->unit }} واحد)
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <option value="" disabled>هیچ ارائه‌ای موجود نیست</option>
+                                        @endif
+                                    </select>
                                 <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                                     <i class="fas fa-chevron-down text-gray-400"></i>
                                 </div>
