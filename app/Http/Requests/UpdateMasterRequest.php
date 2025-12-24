@@ -22,7 +22,6 @@ class UpdateMasterRequest extends FormRequest
             'graduation' => 'required|string|max:200',
         ];
 
-        // فقط اگر ستون‌ها در دیتابیس وجود دارند، قوانین را اضافه کن
         if (Schema::hasColumn('masters', 'email')) {
             $rules['email'] = [
                 'nullable',
@@ -112,7 +111,6 @@ class UpdateMasterRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        // پاکسازی و فرمت کردن داده‌ها قبل از اعتبارسنجی
         $this->merge([
             'name' => trim($this->name),
             'graduation' => trim($this->graduation),
@@ -124,20 +122,14 @@ class UpdateMasterRequest extends FormRequest
         ]);
     }
 
-    /**
-     * پاکسازی شماره تلفن
-     */
     private function cleanPhoneNumber($phone): string
     {
-        // حذف همه غیر از اعداد
         $phone = preg_replace('/[^0-9۰-۹]/u', '', $phone);
 
-        // تبدیل اعداد فارسی به انگلیسی
         $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
         $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         $phone = str_replace($persianNumbers, $englishNumbers, $phone);
 
-        // اگر با ۹ شروع شده و ۱۰ رقم دارد، صفر به ابتدای آن اضافه کن
         if (strlen($phone) === 10 && str_starts_with($phone, '9')) {
             $phone = '0' . $phone;
         }
@@ -145,9 +137,6 @@ class UpdateMasterRequest extends FormRequest
         return $phone;
     }
 
-    /**
-     * گرفتن داده‌های معتبر شده
-     */
     public function validatedData(): array
     {
         $validated = $this->validated();
@@ -176,9 +165,6 @@ class UpdateMasterRequest extends FormRequest
         return $validated;
     }
 
-    /**
-     * Custom validation rules
-     */
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

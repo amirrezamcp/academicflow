@@ -13,7 +13,6 @@ class LessonController extends Controller
     {
         $query = Lesson::query();
 
-        // جستجو
         if ($request->has('search') && $request->search) {
             $query->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('code', 'like', '%' . $request->search . '%');
@@ -21,7 +20,6 @@ class LessonController extends Controller
 
         $lessons = $query->latest()->paginate(10);
 
-        // آمارها
         $totalLessons = Lesson::count();
         $avgUnit = Lesson::avg('unit') ?? 0;
         $maxUnit = Lesson::max('unit') ?? 0;
