@@ -1,80 +1,210 @@
 /* ============================
-   Page animation
+   Font & Base
+============================ */
+* {
+    scroll-behavior: smooth;
+}
+
+/* ============================
+   Glassmorphism Effects
+============================ */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-nav {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ============================
+   Page animation (بهبود یافته)
 ============================ */
 .page-animate {
     opacity: 0;
-    transform: translateY(8px);
-    animation: fadeIn 0.36s ease-out forwards;
+    transform: translateY(15px) scale(0.98);
+    animation: gentleFadeIn 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+@keyframes gentleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+    to   {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* ============================
-   Card hover
+   Card hover (بهبود یافته)
 ============================ */
-.card-hover {
-    transition: transform .2s ease, box-shadow .2s ease;
+.card-modern {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-.card-hover:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(2,6,23,0.06);
+.card-modern:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(59, 130, 246, 0.05);
+    border-color: rgba(59, 130, 246, 0.3);
 }
 
 /* ============================
-   Button press animation
+   Button Styles
 ============================ */
-.button-press {
-    transition: transform .12s ease, box-shadow .12s ease;
+.btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white
+           px-5 py-2.5 rounded-lg font-medium transition-all duration-300
+           hover:from-primary-600 hover:to-primary-700
+           hover:shadow-lg hover:-translate-y-0.5
+           active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
 }
 
-.button-press:active {
-    transform: scale(.985);
+.btn-accent {
+    @apply bg-gradient-to-r from-accent-500 to-accent-600 text-white
+           px-5 py-2.5 rounded-lg font-medium transition-all duration-300
+           hover:from-accent-600 hover:to-accent-700
+           hover:shadow-lg hover:-translate-y-0.5
+           active:scale-95;
+}
+
+.btn-outline {
+    @apply border border-gray-300 text-gray-700
+           px-5 py-2.5 rounded-lg font-medium transition-all duration-300
+           hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700
+           active:scale-95;
 }
 
 /* ============================
-   Input focus
+   Input & Form (بهبود یافته)
 ============================ */
-.input-focus {
-    transition: box-shadow .18s ease, border-color .18s ease;
+.input-modern {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-300
+           bg-white transition-all duration-200
+           focus:border-primary-500 focus:ring-2 focus:ring-primary-200
+           focus:outline-none focus:bg-white
+           hover:border-gray-400;
 }
 
-.input-focus:focus {
-    outline: none;
-    border-color: rgba(59,130,246,0.9);
-    box-shadow: 0 0 0 6px rgba(59,130,246,0.08);
+.input-modern:disabled {
+    @apply bg-gray-100 text-gray-500 cursor-not-allowed;
 }
 
 /* ============================
-   Table hover
+   Table (بهبود یافته)
 ============================ */
-.table-hover tr:hover {
-    background-color: rgba(59,130,246,0.04);
+.table-modern {
+    @apply w-full rounded-xl overflow-hidden shadow-sm;
+}
+
+.table-modern thead {
+    @apply bg-gradient-to-r from-gray-50 to-gray-100;
+}
+
+.table-modern th {
+    @apply px-6 py-4 text-right text-sm font-semibold text-gray-700 border-b;
+}
+
+.table-modern td {
+    @apply px-6 py-4 text-sm border-b border-gray-100;
+}
+
+.table-modern tbody tr {
+    @apply transition-all duration-200 hover:bg-blue-50/50;
+}
+
+.table-modern tbody tr:last-child td {
+    border-bottom: none;
 }
 
 /* ============================
-   Alert / Toast
+   Badge & Status
 ============================ */
-.alert-message {
-    transition: opacity .35s ease, transform .35s ease;
+.badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-success {
+    @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-danger {
+    @apply bg-red-100 text-red-800;
+}
+
+.badge-info {
+    @apply bg-blue-100 text-blue-800;
 }
 
 /* ============================
-   Scrollbar Style
+   Loading Skeleton
+============================ */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ============================
+   Scrollbar (بهبود یافته)
 ============================ */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
     background: #f1f5f9;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #60a5fa;
-    border-radius: 8px;
+    background: linear-gradient(to bottom, #60a5fa, #8b5cf6);
+    border-radius: 10px;
+    border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #3b82f6, #7c3aed);
+}
+
+/* ============================
+   Gradient Backgrounds
+============================ */
+.bg-gradient-grid {
+    background-image:
+        linear-gradient(to right, #f0f9ff 1px, transparent 1px),
+        linear-gradient(to bottom, #f0f9ff 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* ============================
+   Pulse Animation for Notifications
+============================ */
+@keyframes ping-slow {
+    0% { transform: scale(1); opacity: 1; }
+    70% { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.ping-slow {
+    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
